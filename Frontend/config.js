@@ -3,11 +3,9 @@
 // ============================================
 
 const API_CONFIG = {
-    // Base URL - Change this when deploying to production
-    // Development: http://localhost:5001
-    // Production: https://your-api-domain.com
-    // baseUrl: 'http://localhost:5001/api', // Local development
-    baseUrl: 'https://harven-g3lp.onrender.com/api', // Production Backend
+    // Base URL - Since the app is now a monolithic Full-Stack app on Render,
+    // using a relative path works flawlessly for both Localhost and Cloud!
+    baseUrl: '/api', 
     
     endpoints: {
         leads: '/leads',

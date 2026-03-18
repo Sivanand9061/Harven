@@ -146,9 +146,19 @@ app.get('/health', (req, res) => {
 });
 
 // ============================================
-// ERROR HANDLING: 404 Not Found
+// SERVE FRONTEND (Full-Stack Deployment)
+// ============================================
+app.use(express.static(path.join(__dirname, '../Frontend')));
+
+// ============================================
+// ERROR HANDLING: 404 Not Found & Frontend Routing
 // ============================================
 app.use((req, res) => {
+    // If it's a GET request not aimed at the API, send the frontend index (for HTML pages logic)
+    if (req.method === 'GET' && !req.path.startsWith('/api/')) {
+        return res.sendFile(path.join(__dirname, '../Frontend/index.html'));
+    }
+
     console.warn(`[${req.id}] 404 Not Found: ${req.method} ${req.path}`);
     res.status(404).json({
         success: false,

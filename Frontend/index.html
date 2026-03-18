@@ -494,7 +494,7 @@
 
             try {
                 // Make sure your backend runs on port 5001 as defined earlier
-                const response = await fetch('http://localhost:5001/api/auth/login', {
+                const response = await fetch(API_CONFIG.baseUrl + '/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password })

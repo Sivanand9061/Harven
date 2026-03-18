@@ -321,7 +321,7 @@
 
             productsGrid.innerHTML = products.map(product => {
                 return `
-    <div class="product-card-new" onclick="window.location.href='product-detail.html?id=${product.id}'" style="cursor: pointer;">
+    <a class="product-card-new" href="product-detail.html?id=${product.id}" style="cursor: pointer; text-decoration: none; display: block; color: inherit;">
         <div class="product-image-new" style="background-image: url('${product.image}');">
             <span class="product-category-badge">${product.category}</span>
         </div>
@@ -344,8 +344,8 @@
             </div>
             <p class="product-description-new">${product.description}</p>
             
-            </div>
-    </div>
+        </div>
+    </a>
 `;
             }).join('');
         }

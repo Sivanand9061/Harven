@@ -50,20 +50,17 @@ const allowedOrigins = [
     process.env.FRONTEND_URL || 'http://localhost'
 ];
 
-app.use(cors({
-    origin: (origin, callback) => {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin || origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1') || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('CORS not allowed'));
-        }
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Temporarily allow all origins since the Netlify domain is unknown and dynamic.
+        callback(null, true);
     },
     credentials: true,
     optionsSuccessStatus: 200,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-}));
+};
+app.use(cors(corsOptions));
 
 // ============================================
 // BODY PARSER WITH SIZE LIMITS

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - HARVEN</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="HARVEN" class="logo-image">
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="products.html" class="nav-link">Products</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+
+
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb-section">
+        <div class="container-new">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="products.html">Products</a>
+                <span class="breadcrumb-separator">/</span>
+                <span id="breadcrumbProduct">Product</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail -->
+    <section class="product-detail-section">
+        <div class="container-new">
+            <div class="detail-layout">
+                <!-- Left: Image -->
+                <div class="detail-image-container">
+                    <div class="detail-main-image" id="productMainImg">
+                        <img src="" alt="Product" id="productImg">
+                    </div>
+                </div>
+
+                <!-- Right: Info -->
+                <div class="detail-info-container">
+                    <div class="detail-category" id="categoryBadge">CATEGORY</div>
+                    <h1 class="detail-product-title" id="productTitle">Product Name</h1>
+
+                    <div class="detail-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Origin</span>
+                            <span class="spec-value" id="productOrigin">-</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Packaging</span>
+                            <span class="spec-value" id="productPackaging">-</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Minimum Order</span>
+                            <span class="spec-value" id="productMOQ">-</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-description-section">
+                        <h3>Product Description</h3>
+                        <p id="productDescription">Loading product details...</p>
+                    </div>
+
+                    <div class="detail-cta">
+                        <button id="requestQuoteBtn" class="btn-primary btn-large btn-with-icon">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 6h6M7 10h4m-8 4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Request Quote
+                        </button>
+
+                        <a id="btnWhatsappDetail" target="_blank" class="btn-whatsapp">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.489-1.761-1.663-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                            </svg>
+                            WhatsApp
+                        </a>
+
+                        <a id="btnEmailDetail" class="btn-email">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M19 6l-9 6-9-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Email
+                        </a>
+
+                        <a href="products.html" class="btn-secondary btn-large">
+                            &larr; Back to Products
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="related-section" id="relatedSection">
+        <div class="container-new">
+            <h2 class="section-title-new">Related Products</h2>
+            <div class="related-grid" id="relatedGrid">
+                <!-- Related products loaded via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Modal -->
+    <div class="modal-overlay" id="quoteModal">
+        <div class="modal-dialog">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h2 class="modal-title">Request a Quote</h2>
+            <p class="modal-subtitle">Fill out the form and we'll get back to you within 24 hours.</p>
+
+            <form id="quoteForm" class="quote-form-new">
+                <input type="hidden" id="quoteProductName" name="product">
+
+                <div class="form-row-new">
+                    <div class="form-group-new">
+                        <label for="quoteName">Your Name *</label>
+                        <input type="text" id="quoteName" name="name" required>
+                    </div>
+                    <div class="form-group-new">
+                        <label for="quoteEmail">Email *</label>
+                        <input type="email" id="quoteEmail" name="email" required>
+                    </div>
+                </div>
+
+                <div class="form-group-new">
+                    <label for="quoteCompany">Company Name *</label>
+                    <input type="text" id="quoteCompany" name="company" required>
+                </div>
+
+                <div class="form-group-new">
+                    <label for="quotePhone">Phone Number</label>
+                    <input type="tel" id="quotePhone" name="phone">
+                </div>
+
+                <div class="form-group-new">
+                    <label for="quoteQuantity">Quantity Required *</label>
+                    <input type="text" id="quoteQuantity" name="quantity" required placeholder="e.g., 1000 kg">
+                </div>
+
+                <div class="form-group-new">
+                    <label for="quoteMessage">Additional Details</label>
+                    <textarea id="quoteMessage" name="message" rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary btn-large" style="width: 100%;">Send Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-new">
+        <div class="container-new">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="images/logo.png" alt="HARVEN" class="footer-logo">
+                    <p class="footer-tagline">Sourcing the World's Best.</p>
+                </div>
+
+                <div class="footer-links-group">
+                    <h4>Company</h4>
+                    <a href="about.html">About Us</a>
+                    <a href="products.html">Products</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+
+                <div class="footer-links-group">
+                    <h4>Categories</h4>
+                    <a href="products.html?category=grains">Grains</a>
+                    <a href="products.html?category=spices">Spices</a>
+                    <a href="products.html?category=nuts">Nuts</a>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p>Dubai, UAE</p>
+                    <p>info@harvenllc.com</p>
+                    <p>harvenllc.com</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 HARVEN.LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 19V5M5 12L12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+    </button>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script type="text/javascript">
+        // State
+        let product = null;
+        let productsData = []; // All products for related products
+        
+        // Get product ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id'); // MongoDB _id is a string
+
+        // Fetch product by ID from API
+        async function loadProduct() {
+            try {
+                const response = await fetch(API_CONFIG.baseUrl + API_CONFIG.endpoints.products + '/' + productId);
+                const result = await response.json();
+                
+                if (result.success) {
+                    product = result.data;
+                    // Ensure id field is same as _id for compatibility
+                    product.id = product._id;
+                    displayProduct();
+                    loadRelatedProducts();
+                } else {
+                    showProductNotFound();
+                }
+            } catch (error) {
+                console.error('Error loading product:', error);
+                showProductNotFound();
+            }
+        }
+
+        // Fetch all products for related products section
+        async function loadRelatedProducts() {
+            try {
+                const response = await fetch(API_CONFIG.baseUrl + API_CONFIG.endpoints.products);
+                const result = await response.json();
+                
+                if (result.success && Array.isArray(result.data)) {
+                    productsData = result.data.map(p => ({ ...p, id: p._id }));
+                    displayRelatedProducts();
+                }
+            } catch (error) {
+                console.error('Error loading related products:', error);
+                // Not critical - just hide the section
+                document.getElementById('relatedSection').style.display = 'none';
+            }
+        }
+
+        function showProductNotFound() {
+            document.querySelector('.product-detail-section').innerHTML = `
+            <div class="container-new" style="text-align: center; padding: 100px 20px;">
+                <h2>Product Not Found</h2>
+                <p style="margin: 20px 0;">Sorry, we couldn't find the product you're looking for.</p>
+                <a href="products.html" class="btn-primary">Back to Products</a>
+            </div>
+        `;
+            document.getElementById('relatedSection').style.display = 'none';
+        }
+
+        function displayProduct() {
+            if (!product) return;
+
+            document.title = `${product.name} - HARVEN`;
+            document.getElementById('breadcrumbProduct').textContent = product.name;
+            document.getElementById('productImg').src = product.image;
+            document.getElementById('productImg').alt = product.name;
+            document.getElementById('categoryBadge').textContent = product.category.toUpperCase();
+            document.getElementById('productTitle').textContent = product.name;
+            document.getElementById('productOrigin').textContent = product.origin || '-';
+            document.getElementById('productPackaging').textContent = product.packaging || '-';
+            document.getElementById('productMOQ').textContent = product.moq || '-';
+            document.getElementById('productDescription').textContent = product.description;
+
+            document.getElementById('btnWhatsappDetail').href = `https://wa.me/918157853478?text=Hey%20i%20want%20to%20know%20more%20about%20${encodeURIComponent(product.name)}`;
+            document.getElementById('btnEmailDetail').href = `mailto:info@harvenllc.com?subject=Inquiry%20about%20${encodeURIComponent(product.name)}&body=Hey%20i%20want%20to%20know%20more%20about%20${encodeURIComponent(product.name)}`;
+            
+            // Setup modal after product is displayed
+            setupModal();
+        }
+
+        function displayRelatedProducts() {
+            if (!product || !productsData.length) {
+                document.getElementById('relatedSection').style.display = 'none';
+                return;
+            }
+
+            const relatedProducts = productsData
+                .filter(p => p.category === product.category && p._id !== product._id)
+                .slice(0, 3);
+
+            const relatedGrid = document.getElementById('relatedGrid');
+            if (relatedProducts.length > 0) {
+                relatedGrid.innerHTML = relatedProducts.map(p => `
+                <a href="product-detail.html?id=${p._id}" class="related-card-new">
+                    <div class="related-image-new" style="background-image: url('${p.image}');"></div>
+                    <div class="related-content-new">
+                        <h4>${p.name}</h4>
+                        <p>${p.origin || '-'}</p>
+                    </div>
+                </a>
+            `).join('');
+            } else {
+                document.getElementById('relatedSection').style.display = 'none';
+            }
+        }
+
+        // Modal
+        const modal = document.getElementById('quoteModal');
+        const requestQuoteBtn = document.getElementById('requestQuoteBtn');
+        const modalClose = document.getElementById('modalClose');
+        const quoteForm = document.getElementById('quoteForm');
+
+        function setupModal() {
+            if (!product) return;
+
+            if (requestQuoteBtn) {
+                requestQuoteBtn.addEventListener('click', () => {
+                    document.getElementById('quoteProductName').value = product.name;
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        if (modalClose) modalClose.addEventListener('click', closeModal);
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+
+        if (quoteForm) {
+            quoteForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const submitBtn = quoteForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+
+                const formData = new FormData(quoteForm);
+                const data = Object.fromEntries(formData);
+                
+                // Format the data to match backend Lead model expectation
+                const nameParts = data.name.trim().split(' ');
+                const firstName = nameParts[0] || 'Unknown';
+                const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '-';
+                
+                const leadData = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: data.email,
+                    company: data.company,
+                    phone: data.phone,
+                    subject: 'Quote Request',
+                    message: `Product: ${data.product}\nQuantity: ${data.quantity}\nAdditional Details: ${data.message}`
+                };
+
+                try {
+                    const response = await fetch(API_CONFIG.baseUrl + API_CONFIG.endpoints.leads, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(leadData)
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        showToast('Quote Requested', `Thank you! Your quote request for "${data.product || 'this product'}" has been submitted. We'll contact you at ${data.email} within 24 hours.`, 'success');
+                        closeModal();
+                        quoteForm.reset();
+                    } else {
+                        showToast('Error', result.message || 'Failed to submit quote request.', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error submitting form:', error);
+                    showToast('Network Error', 'A network error occurred. Please try again later.', 'error');
+                } finally {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+
+        // Initialize the page
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                loadProduct();
+            });
+        } else {
+            loadProduct();
+        }
+    </script>
+</body>
+
+</html>

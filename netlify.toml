@@ -1,0 +1,11 @@
+[build]
+  # Netlify serves the Frontend/ subfolder as the site root
+  publish = "Frontend"
+  # No build command — pure static HTML
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"

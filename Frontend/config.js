@@ -3,28 +3,29 @@
 // ============================================
 
 // Auto-detect environment:
-// - file:// protocol or localhost = local dev → use absolute backend URL
-// - Deployed on Render (same origin) → use relative /api path
+// - file:// protocol or localhost  → local dev → use absolute localhost URL
+// - Deployed on Netlify            → use Render backend URL
 const _isLocalDev = window.location.protocol === 'file:' ||
                     window.location.hostname === 'localhost' ||
                     window.location.hostname === '127.0.0.1';
 
+// ⚠️ Replace this with your actual Render backend URL after deploying:
+// e.g. 'https://harven-backend.onrender.com/api'
+const PRODUCTION_API = 'https://harven-backend.onrender.com/api';
+
 const API_CONFIG = {
-    // Absolute URL for local dev; relative path for production (same-origin on Render)
-    baseUrl: _isLocalDev ? 'http://localhost:5001/api' : '/api',
+    baseUrl: _isLocalDev ? 'http://localhost:5001/api' : PRODUCTION_API,
 
     endpoints: {
-        leads: '/leads',
+        leads:    '/leads',
         products: '/products',
-        auth: '/auth'
+        auth:     '/auth'
     },
 
-    // Timeout for API requests (in milliseconds)
     timeout: 10000,
 
-    // Display settings
     ui: {
-        loadingDelay: 300,  // Delay before showing loading spinner (prevents flashing)
-        pageSize: 20        // Items per page for pagination (future feature)
+        loadingDelay: 300,
+        pageSize: 20
     }
 };

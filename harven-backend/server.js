@@ -42,12 +42,31 @@ app.use(helmet({
 // ============================================
 // CORS
 // ============================================
+const allowedOrigins = [
+    'http://localhost:5001',
+    'http://localhost:3000',
+    'http://127.0.0.1:5500',
+    // Netlify frontend — update after deploy if slug differs
+    'https://harvenllc.netlify.app',
+    /\.netlify\.app$/,           // any Netlify preview URL
+    /\.onrender\.com$/           // Render preview URLs
+];
+
 app.use(cors({
-    origin:         true,
+    origin: (origin, callback) => {
+        // Allow requests with no origin (curl, Postman, mobile apps)
+        if (!origin) return callback(null, true);
+        const allowed = allowedOrigins.some(o =>
+            o instanceof RegExp ? o.test(origin) : o === origin
+        );
+        if (allowed) return callback(null, true);
+        return callback(new Error('CORS: origin not allowed — ' + origin));
+    },
     credentials:    true,
     methods:        ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
+
 
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ limit: '10kb', extended: false }));

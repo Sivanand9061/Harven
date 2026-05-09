@@ -1,66 +1,77 @@
-const mongoose = require('mongoose');
+// ============================================
+// PRODUCT COLLECTION HELPER
+// ============================================
+// Firestore replaces Mongoose — no schema needed.
+// Validation is handled by middleware/validation.js
 
-const productSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: [true, 'Product name is required'],
-        trim: true,
-        minlength: [3, 'Product name must be at least 3 characters'],
-        maxlength: [100, 'Product name must not exceed 100 characters']
+const { db, admin } = require('../firebase');
+
+const COLLECTION = 'products';
+
+const Product = {
+    collection: () => db.collection(COLLECTION),
+
+    // Create a new product document
+    async create(data) {
+        const docRef = db.collection(COLLECTION).doc(); // auto-generated ID
+        const payload = {
+            ...data,
+            inStock: data.inStock !== undefined ? data.inStock : true,
+            image: data.image || 'https://images.unsplash.com/photo-1599599810694-2eea62f3c5?w=400',
+            createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+        };
+        await docRef.set(payload);
+        return { _id: docRef.id, ...payload };
     },
-    category: {
-        type: String,
-        required: [true, 'Category is required'],
-        enum: ['grains', 'produce', 'nuts', 'spices', 'processed', 'frozen'],
-        lowercase: true
+
+    // Get all products, sorted by createdAt descending
+    async findAll({ limit = 100, skip = 0 } = {}) {
+        const snapshot = await db.collection(COLLECTION)
+            .orderBy('createdAt', 'desc')
+            .limit(limit + skip)
+            .get();
+
+        const all = snapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() }));
+        return all.slice(skip);
     },
-    description: {
-        type: String,
-        required: [true, 'Description is required'],
-        trim: true,
-        minlength: [10, 'Description must be at least 10 characters'],
-        maxlength: [2000, 'Description must not exceed 2000 characters']
+
+    // Count total products
+    async count() {
+        const snapshot = await db.collection(COLLECTION).count().get();
+        return snapshot.data().count;
     },
-    origin: {
-        type: String,
-        trim: true,
-        maxlength: [100, 'Origin must not exceed 100 characters']
+
+    // Find a single product by Firestore doc ID
+    async findById(id) {
+        const doc = await db.collection(COLLECTION).doc(id).get();
+        if (!doc.exists) return null;
+        return { _id: doc.id, ...doc.data() };
     },
-    packaging: {
-        type: String,
-        trim: true,
-        maxlength: [100, 'Packaging must not exceed 100 characters']
+
+    // Update a product by ID (partial update)
+    async findByIdAndUpdate(id, data) {
+        const ref = db.collection(COLLECTION).doc(id);
+        const doc = await ref.get();
+        if (!doc.exists) return null;
+        const updateData = {
+            ...data,
+            updatedAt: admin.firestore.FieldValue.serverTimestamp()
+        };
+        await ref.update(updateData);
+        const updated = await ref.get();
+        return { _id: updated.id, ...updated.data() };
     },
-    moq: {
-        type: Number,
-        required: [true, 'MOQ (Minimum Order Quantity) is required'],
-        min: [1, 'MOQ must be at least 1'],
-        max: [1000000, 'MOQ is too large']
-    },
-    price: {
-        type: Number,
-        required: [true, 'Price is required'],
-        min: [0, 'Price cannot be negative'],
-        max: [99999, 'Price exceeds maximum allowed']
-    },
-    image: {
-        type: String,
-        trim: true,
-        default: 'https://images.unsplash.com/photo-1599599810694-2eea62f3c5?w=400'
-    },
-    inStock: {
-        type: Boolean,
-        default: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now,
-        set: () => Date.now()
+
+    // Delete a product by ID
+    async findByIdAndDelete(id) {
+        const ref = db.collection(COLLECTION).doc(id);
+        const doc = await ref.get();
+        if (!doc.exists) return null;
+        const data = { _id: doc.id, ...doc.data() };
+        await ref.delete();
+        return data;
     }
-});
+};
 
-module.exports = mongoose.model('Product', productSchema);
+module.exports = Product;

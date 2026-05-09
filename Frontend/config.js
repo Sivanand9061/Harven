@@ -2,11 +2,17 @@
 // Frontend Configuration
 // ============================================
 
+// Auto-detect environment:
+// - file:// protocol or localhost = local dev → use absolute backend URL
+// - Deployed on Render (same origin) → use relative /api path
+const _isLocalDev = window.location.protocol === 'file:' ||
+                    window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1';
+
 const API_CONFIG = {
-    // Base URL - Since the app is now a monolithic Full-Stack app on Render,
-    // using a relative path works flawlessly for both Localhost and Cloud!
-    baseUrl: '/api', 
-    
+    // Absolute URL for local dev; relative path for production (same-origin on Render)
+    baseUrl: _isLocalDev ? 'http://localhost:5001/api' : '/api',
+
     endpoints: {
         leads: '/leads',
         products: '/products',
@@ -22,9 +28,3 @@ const API_CONFIG = {
         pageSize: 20        // Items per page for pagination (future feature)
     }
 };
-
-// For production deployment, use:
-// const API_CONFIG = {
-//     baseUrl: process.env.REACT_APP_API_URL || 'https://api.harvenllc.com/api',
-//     ...
-// };

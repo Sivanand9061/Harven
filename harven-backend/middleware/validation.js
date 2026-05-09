@@ -137,7 +137,9 @@ const validateProduct = [
 const validateProductId = [
     param('id')
         .trim()
-        .matches(/^[a-f0-9]{24}$/).withMessage('Invalid product ID format'),
+        // Firestore auto-IDs are 20 alphanumeric chars (mixed case)
+        // Accept 10-128 chars to be future-proof
+        .matches(/^[a-zA-Z0-9_-]{10,128}$/).withMessage('Invalid product ID format'),
     handleValidationErrors
 ];
 
@@ -147,7 +149,8 @@ const validateProductId = [
 const validateLeadId = [
     param('id')
         .trim()
-        .matches(/^[a-f0-9]{24}$/).withMessage('Invalid lead ID format'),
+        // Firestore auto-IDs are 20 alphanumeric chars (mixed case)
+        .matches(/^[a-zA-Z0-9_-]{10,128}$/).withMessage('Invalid lead ID format'),
     handleValidationErrors
 ];
 

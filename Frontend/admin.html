@@ -439,7 +439,7 @@
             }
         }
     </style>
-    </style>
+
 
     <!-- Auth Protection Script -->
     <script>
@@ -624,6 +624,8 @@
     </div>
 
     <script src="config.js"></script>
+    <!-- Load script.js first so showToast is available to inline scripts below -->
+    <script src="script.js"></script>
     <script>
 
         // Utility: Escape HTML to prevent XSS
@@ -832,15 +834,16 @@
                 const statusCounts = {
                     'New': 0,
                     'Contacted': 0,
-                    'Converted': 0,
-                    'Lost': 0
+                    'Qualified': 0,
+                    'Closed': 0
                 };
 
                 // Count by status
                 leads.forEach(lead => {
-                    const status = lead.status || 'New';
-                    if (statusCounts.hasOwnProperty(status)) {
-                        statusCounts[status]++;
+                    const status = lead.status || 'new';
+                    const key = status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
+                    if (statusCounts.hasOwnProperty(key)) {
+                        statusCounts[key]++;
                     } else {
                         statusCounts['New']++;
                     }
@@ -849,7 +852,7 @@
                 // Calculate conversion percentages
                 const total = Object.values(statusCounts).reduce((sum, val) => sum + val, 0);
                 const conversionRate = total > 0 
-                    ? ((statusCounts['Converted'] / total) * 100).toFixed(1)
+                    ? ((statusCounts['Qualified'] / total) * 100).toFixed(1)
                     : 0;
 
                 // Render funnel chart
@@ -862,15 +865,15 @@
                 funnelChartInstance = new Chart(funnelCtx, {
                     type: 'bar',
                     data: {
-                        labels: ['New', 'Contacted', 'Converted', 'Lost'],
+                        labels: ['New', 'Contacted', 'Qualified', 'Closed'],
                         datasets: [{
                             label: 'Number of Leads',
-                            data: [statusCounts['New'], statusCounts['Contacted'], statusCounts['Converted'], statusCounts['Lost']],
+                            data: [statusCounts['New'], statusCounts['Contacted'], statusCounts['Qualified'], statusCounts['Closed']],
                             backgroundColor: [
                                 'rgba(27, 94, 61, 0.8)',      // Dark Green (New)
                                 'rgba(52, 152, 219, 0.8)',    // Blue (Contacted)
-                                'rgba(46, 204, 113, 0.8)',    // Green (Converted)
-                                'rgba(231, 76, 60, 0.7)'      // Red (Lost)
+                                'rgba(241, 196, 15, 0.8)',    // Gold (Qualified)
+                                'rgba(46, 204, 113, 0.8)'     // Green (Closed)
                             ],
                             borderRadius: 8,
                             borderSkipped: false
@@ -1009,10 +1012,10 @@
                     const statusMap = {
                         'new': 'New',
                         'contacted': 'Contacted',
-                        'converted': 'Converted',
-                        'lost': 'Lost'
+                        'qualified': 'Qualified',
+                        'closed': 'Closed'
                     };
-                    return statusMap[(status || 'New').toLowerCase()] || 'New';
+                    return statusMap[(status || 'new').toLowerCase()] || 'New';
                 };
                 const normalizedStatus = normalizeStatus(lead.status);
 
@@ -1021,10 +1024,10 @@
 
                 // Color code status badges
                 const statusColors = {
-                    'New': 'background: #e8f8f5; color: #1abc9c; border-color: #1abc9c;',
+                    'New':       'background: #e8f8f5; color: #1abc9c; border-color: #1abc9c;',
                     'Contacted': 'background: #eaf2f8; color: #3498db; border-color: #3498db;',
-                    'Converted': 'background: #e8f5e9; color: #2ecc71; border-color: #2ecc71;',
-                    'Lost': 'background: #fdedec; color: #e74c3c; border-color: #e74c3c;'
+                    'Qualified': 'background: #fef9e7; color: #f39c12; border-color: #f39c12;',
+                    'Closed':    'background: #e8f5e9; color: #27ae60; border-color: #27ae60;'
                 };
                 const badgeStyle = statusColors[normalizedStatus] || statusColors['New'];
 
@@ -1046,10 +1049,10 @@
                                 onchange="updateLeadStatus('${leadId}', this.value)"
                                 aria-label="Lead status"
                             >
-                                <option value="New" ${normalizedStatus === 'New' ? 'selected' : ''}>New</option>
-                                <option value="Contacted" ${normalizedStatus === 'Contacted' ? 'selected' : ''}>Contacted</option>
-                                <option value="Converted" ${normalizedStatus === 'Converted' ? 'selected' : ''}>Converted</option>
-                                <option value="Lost" ${normalizedStatus === 'Lost' ? 'selected' : ''}>Lost</option>
+                                <option value="new" ${lead.status === 'new' ? 'selected' : ''}>New</option>
+                                <option value="contacted" ${lead.status === 'contacted' ? 'selected' : ''}>Contacted</option>
+                                <option value="qualified" ${lead.status === 'qualified' ? 'selected' : ''}>Qualified</option>
+                                <option value="closed" ${lead.status === 'closed' ? 'selected' : ''}>Closed</option>
                             </select>
                         </td>
                     `;
@@ -1203,8 +1206,6 @@
             window.location.href = 'index.html';
         }
     </script>
-    <!-- Include Toast functionality -->
-    <script src="script.js"></script>
 </body>
 
 </html>

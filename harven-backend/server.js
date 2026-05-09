@@ -74,14 +74,47 @@ app.use(express.urlencoded({ limit: '10kb', extended: false }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ============================================
+// RATE LIMITING
+// ============================================
+
+// General API limit: 100 requests per minute per IP
+const generalLimiter = rateLimit({
+    windowMs: 60 * 1000,
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { success: false, message: 'Too many requests. Please slow down.' }
+});
+
+// Strict limit for auth: 5 attempts per 15 minutes
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 5,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { success: false, message: 'Too many login attempts. Try again in 15 minutes.' }
+});
+
+// Lead submission: 10 per hour (prevents contact form spam)
+const leadLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    max: 10,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { success: false, message: 'Too many submissions. Please wait before trying again.' }
+});
+
+app.use('/api/', generalLimiter);
+
+// ============================================
 // ROUTES
 // ============================================
 const leadRoutes    = require('./routes/leadRoutes');
 const authRoutes    = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 
-app.use('/api/leads',    leadRoutes);
-app.use('/api/auth',     authRoutes);
+app.use('/api/leads',    leadLimiter, leadRoutes);
+app.use('/api/auth',     authLimiter, authRoutes);
 app.use('/api/products', productRoutes);
 
 // Health Check

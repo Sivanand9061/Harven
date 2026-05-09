@@ -46,10 +46,9 @@ const allowedOrigins = [
     'http://localhost:5001',
     'http://localhost:3000',
     'http://127.0.0.1:5500',
-    // Netlify frontend — update after deploy if slug differs
-    'https://harvenllc.netlify.app',
-    /\.netlify\.app$/,           // any Netlify preview URL
-    /\.onrender\.com$/           // Render preview URLs
+    'https://harvenlead.netlify.app',  // Production frontend
+    /\.netlify\.app$/,                 // Netlify preview deploys
+    /\.onrender\.com$/                 // Render preview URLs
 ];
 
 app.use(cors({
